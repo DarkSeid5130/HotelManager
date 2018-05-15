@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gd.dzh.domain.Room;
 import com.gd.dzh.domain.VRoomorder;
 import com.gd.dzh.service.RoomService;
 import com.gd.dzh.utils.JsonUtil;
