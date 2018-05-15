@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.dzh.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.gd.dzh.domain.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="rid" jdbcType="INTEGER" property="rid" />
+    <result column="checkintime" jdbcType="TIMESTAMP" property="checkintime" />
+    <result column="checkouttime" jdbcType="TIMESTAMP" property="checkouttime" />
+    <result column="ext01" jdbcType="VARCHAR" property="ext01" />
+    <result column="ext02" jdbcType="VARCHAR" property="ext02" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, cid, rid, checkintime, checkouttime, ext01, ext02
+  </sql>
+  <select id="selectByExample" parameterType="com.gd.dzh.domain.OrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gd.dzh.domain.OrderExample">
+    delete from order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gd.dzh.domain.Order">
+    insert into order (id, cid, rid, 
+      checkintime, checkouttime, ext01, 
+      ext02)
+    values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER}, 
+      #{checkintime,jdbcType=TIMESTAMP}, #{checkouttime,jdbcType=TIMESTAMP}, #{ext01,jdbcType=VARCHAR}, 
+      #{ext02,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gd.dzh.domain.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="checkintime != null">
+        checkintime,
+      </if>
+      <if test="checkouttime != null">
+        checkouttime,
+      </if>
+      <if test="ext01 != null">
+        ext01,
+      </if>
+      <if test="ext02 != null">
+        ext02,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null">
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkouttime != null">
+        #{checkouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext01 != null">
+        #{ext01,jdbcType=VARCHAR},
+      </if>
+      <if test="ext02 != null">
+        #{ext02,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gd.dzh.domain.OrderExample" resultType="java.lang.Long">
+    select count(*) from order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update order
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.cid != null">
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rid != null">
+        rid = #{record.rid,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkintime != null">
+        checkintime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkouttime != null">
+        checkouttime = #{record.checkouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ext01 != null">
+        ext01 = #{record.ext01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext02 != null">
+        ext02 = #{record.ext02,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update order
+    set id = #{record.id,jdbcType=INTEGER},
+      cid = #{record.cid,jdbcType=INTEGER},
+      rid = #{record.rid,jdbcType=INTEGER},
+      checkintime = #{record.checkintime,jdbcType=TIMESTAMP},
+      checkouttime = #{record.checkouttime,jdbcType=TIMESTAMP},
+      ext01 = #{record.ext01,jdbcType=VARCHAR},
+      ext02 = #{record.ext02,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gd.dzh.domain.Order">
+    update order
+    <set>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null">
+        rid = #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null">
+        checkintime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkouttime != null">
+        checkouttime = #{checkouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ext01 != null">
+        ext01 = #{ext01,jdbcType=VARCHAR},
+      </if>
+      <if test="ext02 != null">
+        ext02 = #{ext02,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gd.dzh.domain.Order">
+    update order
+    set cid = #{cid,jdbcType=INTEGER},
+      rid = #{rid,jdbcType=INTEGER},
+      checkintime = #{checkintime,jdbcType=TIMESTAMP},
+      checkouttime = #{checkouttime,jdbcType=TIMESTAMP},
+      ext01 = #{ext01,jdbcType=VARCHAR},
+      ext02 = #{ext02,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title>宾馆管理系统</title>
+    <link rel="stylesheet" href="layui/css/layui.css"/>
+    <link rel="stylesheet" href="css/admin.css"/>
+    <link rel="stylesheet" href="css/bootstrap-table.min.css"/>
+    <!--<link rel="stylesheet" href="../../css/bootstrap.min.css"/>-->
+</head>
+<body>
+	<div class="container">
+		<div class="content-search">
+			<form class="layui-form layui-form-pane" action="">
+				<div class="layui-inline">
+					<label class="layui-form-label">房间类型</label>
+					<div class="layui-input-inline">
+						<select lay-verify="" id = "roomtype">
+						  <option value="10">请选择</option>
+						  <option value="0">单人间</option>
+						  <option value="1">标准间</option>
+						  <option value="2">双人间</option>
+						  <option value="3">三人间</option>
+						  <option value="4">大床房</option>
+						  <option value="5">豪华间</option>
+						  <option value="6">总统套房</option>
+						</select>   
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">房间状态</label>
+					<div class="layui-input-inline">
+						<select lay-verify="" id = "roomstatus">
+						  <option value="10">请选择</option>
+						  <option value="0">空闲</option>
+						  <option value="1">已入住</option>
+						  <option value="2">已预订</option>
+						  <option value="3">未开放</option>
+						</select>   
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">房间号</label>
+					<div class="layui-input-block">
+						<input  autocomplete="off" placeholder="请输入房间号" class="layui-input" type="text" id= "roomnum"/>
+					</div>
+				</div>
+				<button class="layui-btn layui-btn-normal" id="search">查询</button>
+			</form>
+		</div>
+
+		<fieldset class="layui-elem-field mt10">
+		  <legend>当前房间情况</legend>
+		  <div class="layui-field-box">
+			<table class="layui-table" lay-skin="nob">
+			  <tbody>
+			    <tr>
+			      <td>已预定房间：<span>20</span></td>
+			      <td>已入住房间：<span>30</span></td>
+			      <td>空闲房间：<span>20</span></td>
+			      <td>维护房间：<span style="color: red;font-family: '微软雅黑';">20</span></td>
+			    </tr>
+			  </tbody>
+			</table>
+		  </div>
+		</fieldset>
+		<div class="table-listm roll-x">
+			<table id="roomTab" class="layui-table" lay-skin="line">
+			  
+			</table>   
+		</div>
+	</div>
+	<div id="table-pages" style="text-align:center"></div>
+	
+	<script type="text/javascript" src="layui/layui.js"></script>
+	<script type="text/javascript" src="js/js/jquery-3.2.0.min.js"></script>
+	<script type="text/javascript" src="js/js/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="js/js/bootstrap.min.js"></script>
+    <script>
+    	
+    	$(document).ready(function (){
+    	//获取宾馆的情况
+		$.ajax({
+    			type:"get",
+    			url:"",
+    			success:function(result){
+    				if(result!=null&&result != ''){
+    					debugger
+    				}
+    			}
+    		});
+    	})
+    	
+    	$("#roomTab").bootstrapTable({
+    		url: 'getRoomSituation',
+            method: 'post',
+            contentType: "application/x-www-form-urlencoded",//必须有
+            queryParamsType: '',
+            queryParams: function queryParams(params) {
+            	var param = {
+                        //房间类型
+                        roomtype: $("#roomtype").val(),
+                        //房间名称
+                        roomstatus: $("#roomstatus").val(),
+                        roomnum : $("#roomnum").val()
+                        
+                };
+            	debugger
+                return param;
+            },
+            columns:[
+            	{
+            		field: 'roomnum',
+            		title: '房间号',
+            		align: 'center',
+            		valign: 'middle',
+            		width:100
+            	},{
+            		field: 'roomstatus',
+            		title: '房间状态',
+            		align: 'center',
+            		valign: 'middle',
+            		width:100,
+            		formatter: function (value, row, index){
+            			if(value = "0"){
+            				return "空闲";
+            			}
+            			if(value = "1"){
+            				return "已入住";
+            			}
+            			if(value = "2"){
+            				return "已预订";
+            			}
+            			if(value = "3"){
+            				return "未开放";
+            			}
+            		}
+            	},{
+            		field: 'roomtype',
+            		title: '房间类型',
+            		align: 'center',
+            		valign: 'middle',
+            		formatter: function (value, row, index){
+            			if(value == 0){
+            				return "单人间";
+            			}
+            			if(value == 1){
+            				return "标准间";
+            			}
+            			if(value == 2){
+            				return "双人间";
+            			}
+            			if(value == 3){
+            				return "三人间";
+            			}
+            			if(value == 4){
+            				return "大床房";
+            			}
+            			if(value == 5){
+            				return "豪华间";
+            			}
+            			if(value == 6){
+            				return "总统套房";
+            			}
+            		},
+            		width:100
+            	},{
+            		field: 'roomprice',
+            		title: '房间价格',
+            		align: 'center',
+            		valign: 'middle',
+            		width:100
+            	},
+            	{
+            		field: 'checkintime',
+            		title: '入住时间',
+            		align: 'center',
+            		valign: 'middle',
+            		width:100
+            	},
+            	{
+            		field: 'checkouttime',
+            		title: '到期时间',
+            		align: 'center',
+            		valign: 'middle',
+            		width:100
+            		
+            	},
+            	{
+            		field: 'tool',
+            		title: '操作',
+            		align: 'center',
+            		valign: 'middle',
+            		width:100,
+            		formatter: function (value, row, index){
+            			
+            			return "<button class='layui-btn' id='checkin'>入住</button>&nbsp;"+
+            			"<button class='layui-btn' id='checkout'>退租</button>&nbsp;"+
+            			"<button class='layui-btn' id='delay'>续租</button>&nbsp;"
+            			
+            		}
+            	}
+            ]
+    	})
+		layui.use(['jquery', 'laydate','form','layer','laypage'], function(){
+			var $ = layui.jquery,
+			    laydate = layui.laydate,
+			    layer = layui.layer,
+			    laypage = layui.laypage;
+				
+			
+		    // 延期操作
+		    $("#delay").click(function(){
+		    	layer.confirm('确定延期吗？', {
+            		btn: ['是的', '按错了'] //可以无限个按钮
+        		}, function () {
+        			layer.open({
+        				area:['900px', '640px']
+                  		,title:"修改密码"
+                  		,content: 'checkin.html'
+        			});
+        		})
+			});
+			// 入住操作
+			$("#checkin").click(function(){
+		    	layer.confirm('确定入住这件房间吗？', {
+            		btn: ['是的', '按错了'] //可以无限个按钮
+        		}, function () {
+        			layer.open({
+        				area:['600px', '320px']
+                  		,title:"入住房间"
+                  		,content: 'checkin.html'
+        			});
+        		})
+			});
+			//退房操作
+		    $("checkout").click(function(){
+		    	layer.confirm('确定退房吗？', {
+            		btn: ['是的', '按错了'] //可以无限个按钮
+        		}, function () {
+        			var params = 
+        			{
+        				roomnum:$("#roomTab").bootstrapTable("getData")[0].roomnum
+        			}
+        			$.ajax({
+                    url: '',
+                    data: params,
+                    type: "post",
+                    dataType: "json",
+                    success:function(data){
+                    	if(data=="success"){
+                    		setTimeout(function(){
+                    			$("#table").bootstrapTable("refresh", {url: '${ctx}/ejson'});
+                    		},1000);
+                    		layer.closeAll('dialog');
+                    	}
+                    },
+                    error: function () {
+                        $("#table").bootstrapTable("refresh", {url: '${ctx}/ejson'});
+                        layer.closeAll('dialog');
+                    }
+                })
+        		})
+			});
+		});
+			$("#search").click(function(){
+				$("#table").bootstrapTable("refresh")
+			})
+		
+	</script>
+</body>
+</html>

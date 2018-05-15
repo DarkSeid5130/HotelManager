@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>宾馆管理系统</title>
+    <link rel="stylesheet" href="layui/css/layui.css"/>
+    <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+    <!-- 布局容器 -->
+    <div class="layui-layout layui-layout-admin">
+        <!-- 头部 -->
+        <div class="layui-header">
+            <div class="layui-main">
+				<div class="top-left">
+					<!-- logo -->
+					<a href="javascript:;" class="logo">宾馆管理系统</a>
+					<a href="javascript:;" class="menu-flexible ml10">
+						<i class="layui-icon">&#xe635;</i> 
+					</a>
+				</div>
+                <!-- 头部右侧操作 -->
+                <ul class="layui-nav operate">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">admin</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                            	<a href="javascript:;" class="edit-password">修改密码</a>
+                            </dd>
+                            <dd>
+                                <a href="login">退出登录</a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 左侧菜单 -->
+        <div class="layui-side layui-bg-black left-menu-all ">
+            <div class="layui-side-scroll">
+            	<ul class="layui-nav layui-nav-tree left-menu" lay-filter="left-menu">
+                    <li class="layui-nav-item layui-this">
+                        <a href="javascript:;" data-url="index" data-id="1">后台首页</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">入住/退房管理</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a class="J_menuItem" href="javascript:;" data-url="room.html" data-id="2">房间详情</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">预定查询</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="待发货.html" data-id="4">待发货</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="订单列表.html" data-id="5">订单列表</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="退货订单.html" data-id="6">退货订单</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="机票订单.html" data-id="7">机票订单</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">商品管理</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="首页轮播图.html" data-id="8">首页轮播图</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="热卖新品推荐.html" data-id="9">热卖/新品推荐</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="首页分类推荐.html" data-id="10">首页分类推荐</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="公告管理.html" data-id="11">公告管理</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+		
+        <!-- 主体 -->
+        <div class="layui-body">
+            <!-- 顶部切换卡 -->
+            <div class="layui-tab layui-tab-card" lay-filter="top-tab" lay-allowClose="true">
+                <ul class="layui-tab-title"></ul>
+                <div class="layui-tab-button">
+                	<a href="javascript:;"><i class="layui-icon">&#x1002;</i></a>
+                </div>
+                <div class="layui-tab-content"></div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="layui-footer">
+            宾馆管理系统<span class="red">*建议使用分辨率1366*768以上及高级浏览器，体验效果更佳！</span>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="layui/layui.js"></script>
+    <script type="text/javascript" src="js/js/admin.js"></script>
+    <script type="text/javascript" src="js/common/jquery/jquery-3.2.0.min.js"></script>
+    <script>
+    	$(document).ready(function (){
+    		
+    	})
+        layui.use(['jquery','form','layer'], function(){
+            var $ = layui.jquery,
+                layer = layui.layer,
+                laypage = layui.laypage;
+
+            // 修改密码
+            $(document).on("click", ".edit-password", function() {
+                layer.open({
+                  type:2
+                  ,area:['450px', '320px']
+                  ,title:"修改密码"
+                  ,content: 'changePass'
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>
