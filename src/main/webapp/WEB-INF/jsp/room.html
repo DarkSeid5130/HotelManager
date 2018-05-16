@@ -5,15 +5,15 @@
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <title>宾馆管理系统</title>
-    <link rel="stylesheet" href="layui/css/layui.css"/>
-    <link rel="stylesheet" href="css/admin.css"/>
-    <link rel="stylesheet" href="css/bootstrap-table.min.css"/>
-    <!--<link rel="stylesheet" href="../../css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="layui/css/layui.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/admin.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/bootstrap-table.min.css" rel="stylesheet"/>
+   
 </head>
 <body>
 	<div class="container">
 		<div class="content-search">
-			<form class="layui-form layui-form-pane" action="">
+			<div class="layui-form layui-form-pane" action="">
 				<div class="layui-inline">
 					<label class="layui-form-label">房间类型</label>
 					<div class="layui-input-inline">
@@ -47,8 +47,9 @@
 						<input  autocomplete="off" placeholder="请输入房间号" class="layui-input" type="text" id= "roomnum"/>
 					</div>
 				</div>
-				<button class="layui-btn layui-btn-normal" id="search">查询</button>
-			</form>
+				
+			</div>
+			<button class="layui-btn layui-btn-normal" id="search">查询</button>
 		</div>
 
 		<fieldset class="layui-elem-field mt10">
@@ -81,22 +82,13 @@
     <script>
     	
     	$(document).ready(function (){
-    	//获取宾馆的情况
-		$.ajax({
-    			type:"get",
-    			url:"",
-    			success:function(result){
-    				if(result!=null&&result != ''){
-    					debugger
-    				}
-    			}
-    		});
+    		
     	})
     	
     	$("#roomTab").bootstrapTable({
     		url: 'getRoomSituation',
             method: 'post',
-            contentType: "application/x-www-form-urlencoded",//必须有
+            contentType: "application/x-www-form-urlencoded",
             queryParamsType: '',
             queryParams: function queryParams(params) {
             	var param = {
@@ -266,7 +258,17 @@
 			});
 		});
 			$("#search").click(function(){
-				$("#table").bootstrapTable("refresh")
+				var opt = {
+				        url: "getRoomSituation",
+				        query:{
+				        	//房间类型
+	                        roomtype: $("#roomtype").val(),
+	                        //房间名称
+	                        roomstatus: $("#roomstatus").val(),
+	                        roomnum : $("#roomnum").val()
+				        }
+				    };
+				$("#roomTab").bootstrapTable("refresh",opt)
 			})
 		
 	</script>
